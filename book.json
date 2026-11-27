@@ -1,0 +1,99 @@
+{
+  "title": "Tisquantum’s Day",
+  "identifier": "urn:uuid:489bd185-68d1-421c-9828-e41790603411",
+  "modified": "2026-11-27T03:22:39Z",
+  "description": "An illustrated account of Tisquantum’s journey from Patuxet across the Atlantic and home again, and his role in the harvest remembered at Thanksgiving.",
+  "spreads": [
+    {
+      "number": 1,
+      "scene": "Patuxet",
+      "file": "D59AFED9-53E7-4C17-9894-4B2A3F97EE6A.png",
+      "sha256": "b6732de90f2d836308e0a1b4af20348736a0388cc95a29af2cf3722b6dcf8da2",
+      "text": "On the eastern shores of a great continent, where the forests met the ocean, there lived a people called the Wampanoag. For generations, they had built villages, planted fields, traveled the rivers and traded with their neighbors. In one of these villages, a place called Patuxet, lived a young man named Tisquantum. This is his story."
+    },
+    {
+      "number": 2,
+      "scene": "Knowing the land",
+      "file": "3A66EE8E-15E8-4565-B5A9-4B1B36228A45.png",
+      "sha256": "07fe7292360f8ff322ede522c663c400f3a392e0dcc069c9986c253eaf534fdf",
+      "text": "Tisquantum knew the land well. He knew where the fish gathered in the spring, how to grow corn in the summer and where to find food when the leaves began to fall. There was much to learn from the people of Patuxet, and much of the world beyond Patuxet that Tisquantum had yet to discover. He would discover more of it than he could ever have imagined."
+    },
+    {
+      "number": 3,
+      "scene": "Taken across the Atlantic",
+      "file": "895C7686-7041-4BBD-931E-9B096FF63279.png",
+      "sha256": "f7f088c93aa529cd3fdde310aa4b5d0df3c0bb559cd602b9555c9165c2552c7c",
+      "text": "From time to time, enormous wooden ships appeared upon the ocean. They came from countries far across the sea, carrying sailors and merchants. One day, an English captain named Thomas Hunt kidnapped Tisquantum and many of his neighbors. He took them across the ocean to Spain, where he sought to sell them into enslavement. But if Hunt thought he had decided Tisquantum’s future, he was very much mistaken."
+    },
+    {
+      "number": 4,
+      "scene": "Freedom in Spain",
+      "file": "65D74F68-E019-4A7E-8292-5D703DE35E80.png",
+      "sha256": "1362fb42b783d60e5c4c1fd80463115453dfd1a6bfdd75a5f3a0ce27d48805f2",
+      "text": "Tisquantum worked hard and eventually gained his freedom in Spain. In Spain he learned a new language, met kind people, and saw great cities, ships and ideas he had never known before. He began to understand more about the larger world and the many different peoples in it. All of this would change the way he saw his home and his place in it."
+    },
+    {
+      "number": 5,
+      "scene": "Preparing to leave England",
+      "file": "95533BDB-F4F4-4E09-BC80-7327B3EFCD1E.png",
+      "sha256": "03b189d1efa9e299a30ab1d204e738cae696b9770cccb2a0857df7de36df96dc",
+      "text": "In England, Tisquantum learned even more. He saw a large and powerful country, met new people, and learned about its leaders and ways of life. He also prepared for a long journey back across the ocean. Tisquantum was going home, but he was not the same person who had been taken away."
+    },
+    {
+      "number": 6,
+      "scene": "Newfoundland",
+      "file": "4B37E5D4-B2CF-450D-A181-BA97CDB2947F.png",
+      "sha256": "b046cd3be0eccd07c4a4e8ba1b9db973c3bf1b70c66b5748c9860dc0802e91d2",
+      "text": "Tisquantum first returned to Newfoundland, where he lived with English fishermen and learned their language and ways. After some time, he set out again for his homeland, carrying new knowledge and a hope for peace."
+    },
+    {
+      "number": 7,
+      "scene": "Home in Patuxet",
+      "file": "46F5FAC1-2FB8-47A1-9B47-7596642C827C.png",
+      "sha256": "d8c5edf5af2b01af97bb37abc9c42dc2b3e155d420fb1305994c022b73a26fb3",
+      "text": "Tisquantum finally returned to his homeland, Patuxet. But he found it quiet. A sickness had swept through, and his people were gone. It was a painful loss. Even so, Tisquantum chose to stay and build a new life with hope for the future."
+    },
+    {
+      "number": 8,
+      "scene": "The Mayflower settlers",
+      "file": "B255C9BA-DC59-4499-8DE6-B9958F684CC1.png",
+      "sha256": "242b34d92223a647f8a881fadb7d19f6d5f299206c84c499ac3427a20ccbf394",
+      "text": "Not long after, new people arrived on a ship called the Mayflower. They were English settlers looking for a place to live. Tisquantum introduced them to Ousamequin, the leader of the Wampanoag. He helped both sides talk, learn about each other, and find a way to live in peace."
+    },
+    {
+      "number": 9,
+      "scene": "An agreement with Ousamequin",
+      "file": "8A4EB17B-77F9-4857-8F14-D3A6D88EAE6D.png",
+      "sha256": "3dda095d7a461967252cc67d00c7027ce8bd860ecdeea127e1375fbe5cbffde1",
+      "text": "Tisquantum helped the Pilgrims and Ousamequin talk with each other. They agreed to be friends, share food, and come to each other’s aid. With this new peace, both peoples could survive and build a stronger future together."
+    },
+    {
+      "number": 10,
+      "scene": "Life at Plymouth",
+      "file": "8FF40E64-E01A-465F-A1D2-31CCDA953844.png",
+      "sha256": "00dc576dc71c9e446f8c1c88c970ab5ab9756b41c102f28b8f38a4af9c36bf5f",
+      "text": "Tisquantum made his home among the people living at Plymouth. He showed them how to grow corn, where to find fish and how to live upon the land he knew so well. He traveled, traded and helped the community communicate with its neighbors. Life was returning to the fields of Patuxet."
+    },
+    {
+      "number": 11,
+      "scene": "The autumn harvest",
+      "file": "4D8E5B53-C698-4056-9D14-F7226C4D16FF.png",
+      "sha256": "3c73297fd68aba2697d8fd6ecf5f08b2456724b592229704a57589d94073fc67",
+      "text": "When autumn came, the harvest was gathered. Ousamequin arrived with ninety of his men. They brought five deer to share. For three days, the Wampanoag and the English ate, played games and celebrated together. They had much to be thankful for, including the peace they had made."
+    },
+    {
+      "number": 12,
+      "scene": "Looking back on the journey",
+      "file": "E73D2C82-3514-4D0F-A719-D3949AC35F20.png",
+      "sha256": "5b802011b9f539f385f0c4621de0dcbbe73c89e4d9db3966917996a3692a9e57",
+      "text": "What an extraordinary journey Tisquantum had made! Across the ocean and back again. He had found his freedom, returned to his homeland, helped make peace, and built a new life. And on the land where his story began, there was once more a celebration."
+    },
+    {
+      "number": 13,
+      "scene": "Remembering Tisquantum at Thanksgiving",
+      "file": "3D33B7D5-E7D5-49AB-A85E-FBF558A8155D.png",
+      "sha256": "2293147b02d6b8ea5abb2099b3567a394fef562c7d29054497c0e66f16f0aa0b",
+      "text": "Every year, we gather with the people we love. We share our food, welcome our guests and give thanks for the good things in our lives. We call this day Thanksgiving. Let us also remember the remarkable man whose courage, knowledge and determination helped make that day possible. His name was Tisquantum. And what a journey he made."
+    }
+  ]
+}
