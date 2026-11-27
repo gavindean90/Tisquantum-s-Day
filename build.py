@@ -1,4 +1,5 @@
 """Build the three editions from verified, ordered PNG spreads."""
+import base64
 import hashlib
 import json
 import tempfile
@@ -7,7 +8,7 @@ from pathlib import Path
 from zipfile import ZIP_STORED, ZipFile, ZipInfo
 
 import img2pdf
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parent
 SIZE = (1774, 887)
@@ -19,35 +20,55 @@ def load_book():
     pages = book["spreads"]
     if [p["number"] for p in pages] != list(range(1, 14)):
         raise ValueError("Expected thirteen spreads numbered 1 through 13 in reading order")
-    files = {p["file"] for p in pages}
-    if len(files) != 13 or files != {p.name for p in ROOT.glob("*.png")}:
-        raise ValueError("Each root PNG must appear exactly once in book.json")
-    pixels = set()
+    # The three re-encoded uploads have opaque filenames. Match against
+    # thumbnails of the approved art, and reject ambiguous matches.
+    candidates = {}
+    for entry in book["revision_candidates"]:
+        path = ROOT / entry["file"]
+        data = path.read_bytes()
+        git_blob = hashlib.sha1(f"blob {len(data)}\0".encode() + data).hexdigest()
+        if git_blob != entry["git_blob"]:
+            raise ValueError(f"Revision candidate changed: {path.name}")
+        with Image.open(path) as im:
+            candidates[path.name] = im.convert("RGB").resize(
+                (16, 8), Image.Resampling.LANCZOS).tobytes()
+    used = set()
     for page in pages:
+        if "reference_rgb" not in page:
+            continue
+        reference = base64.b64decode(page["reference_rgb"], validate=True)
+        if len(reference) != 16 * 8 * 3:
+            raise ValueError("Invalid reference thumbnail")
+        scores = sorted((sum(abs(a-b) for a,b in zip(reference, rgb)) / len(reference), name)
+                        for name, rgb in candidates.items())
+        score, name = scores[0]
+        if score > 5 or scores[1][0] - score < 8 or name in used:
+            raise ValueError(f"Ambiguous revision for spread {page['number']}: {scores}")
+        used.add(name)
+        page["file"] = name
+        page["sha256"] = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+        print(f"Spread {page['number']}: {name} (image distance {score:.2f})")
+    if used != set(candidates):
+        raise ValueError("Not every revision candidate was selected")
+    active = [book["cover"], *pages]
+    files = {p["file"] for p in active}
+    superseded = set(book["superseded"])
+    if (len(files) != 14 or files & superseded
+            or files | superseded != {p.name for p in ROOT.glob("*.png")}):
+        raise ValueError("Every root PNG must be active or explicitly superseded")
+    pixels = set()
+    for page in active:
         path = ROOT / page["file"]
         if hashlib.sha256(path.read_bytes()).hexdigest() != page["sha256"]:
             raise ValueError(f"Source checksum changed: {path.name}")
         with Image.open(path) as im:
-            if im.format != "PNG" or im.size != SIZE or im.mode != "RGB":
-                raise ValueError(f"Expected a {SIZE} RGB PNG: {path.name}")
-            digest = hashlib.sha256(im.tobytes()).digest()
+            if im.format != "PNG" or im.width != 2 * im.height or im.mode not in ("RGB", "RGBA"):
+                raise ValueError(f"Expected a 2:1 RGB or RGBA PNG: {path.name}")
+            digest = hashlib.sha256(im.convert("RGB").tobytes()).digest()
         if digest in pixels:
             raise ValueError(f"Duplicate illustration: {path.name}")
         pixels.add(digest)
     return book
-
-
-def make_cover(first, title, target):
-    cover = Image.new("RGB", SIZE, "#FBF0DA")
-    with Image.open(first) as opening:
-        cover.paste(opening.crop((0, 0, 887, 887)))
-    draw = ImageDraw.Draw(cover)
-    font = ImageFont.load_default(size=100)
-    line1, line2 = title.rsplit(" ", 1)
-    for y, line in [(365, line1), (482, line2)]:
-        draw.text((1330, y), line, font=font, anchor="mm", fill="#483120")
-    draw.line((1265, 575, 1395, 575), fill="#B95327", width=5)
-    cover.save(target)
 
 
 def put(archive, name, data):
@@ -111,9 +132,8 @@ def main():
     with tempfile.TemporaryDirectory(dir=out) as tmp:
         stage = Path(tmp)
         pages = [(ROOT / p["file"], p["scene"], p["text"]) for p in book["spreads"]]
-        cover = stage / "cover.png"
-        make_cover(pages[0][0], book["title"], cover)
-        pages.insert(0, (cover, "Cover", book["title"]))
+        cover = book["cover"]
+        pages.insert(0, (ROOT / cover["file"], "Cover", cover["text"]))
         write_epub(stage / f"{STEM}.epub", book, pages)
         with ZipFile(stage / f"{STEM}.cbz", "w") as archive:
             for i, (path, _, _) in enumerate(pages):
@@ -125,7 +145,7 @@ def main():
         with (stage / f"{STEM}.pdf").open("wb") as pdf:
             img2pdf.convert(*(str(path) for path, _, _ in pages), outputstream=pdf,
                 engine=img2pdf.Engine.internal, nodate=True, title=book["title"],
-                subject=book["description"], layout_fun=img2pdf.get_fixed_dpi_layout_fun((144, 144)))
+                subject=book["description"], layout_fun=img2pdf.get_layout_fun(pagesize=(887, 443.5)))
         for ext in ("epub", "pdf", "cbz"):
             target = out / f"{STEM}.{ext}"
             (stage / target.name).replace(target)
