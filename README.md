@@ -35,7 +35,7 @@ The build checks that entries are numbered 1–13 in order, every root PNG is ac
 
 ## Builds and releases
 
-Every push and manual **Actions → Publish ebooks → Run workflow** invocation builds the three editions and runs EPUBCheck before uploading the **tisquantums-day-editions** artifact. Download and unzip the artifact to open an individual edition.
+Every push and manual **Actions → Publish ebooks → Run workflow** invocation builds the three editions and runs EPUBCheck before uploading the **tisquantums-day-editions** artifact. Download and unzip the artifact to obtain a single `tisquantums-day-editions/` folder containing all three editions. Open an individual edition from that folder.
 
 To publish a reviewed commit, push a tag pointing to it, for example:
 
