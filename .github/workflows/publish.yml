@@ -27,10 +27,14 @@ jobs:
           echo '6c07e68584b2e2ce2f89fe06e1246dfead3eb36b46b340e7d93524f29dcff6c5  epubcheck.zip' | sha256sum --check
           unzip -q epubcheck.zip
           java -jar epubcheck-5.3.0/epubcheck.jar "$GITHUB_WORKSPACE/dist/tisquantums-day.epub" --failonwarnings
+      - name: Stage editions in an enclosing folder
+        run: |
+          mkdir -p artifact-root/tisquantums-day-editions
+          cp dist/tisquantums-day.{epub,pdf,cbz} artifact-root/tisquantums-day-editions/
       - uses: actions/upload-artifact@v4
         with:
           name: tisquantums-day-editions
-          path: dist/tisquantums-day.*
+          path: artifact-root/*/tisquantums-day.*
           if-no-files-found: error
           compression-level: 0
 
@@ -53,8 +57,8 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" dist/* --clobber
+            gh release upload "$TAG" dist/tisquantums-day-editions/* --clobber
           else
-            gh release create "$TAG" dist/* --verify-tag \
+            gh release create "$TAG" dist/tisquantums-day-editions/* --verify-tag \
               --title "Tisquantum’s Day · $TAG" --notes "Fixed-layout EPUB, landscape PDF and CBZ editions."
           fi
