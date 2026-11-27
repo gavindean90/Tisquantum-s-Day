@@ -19,7 +19,7 @@ python -m pip install -r requirements.txt
 python build.py
 ```
 
-The output files are `dist/tisquantums-day.epub`, `dist/tisquantums-day.pdf` and `dist/tisquantums-day.cbz`. The build fixes ZIP timestamps, omits PDF creation timestamps and draws the cover using Pillow’s bundled font. The cover pairs the illustration from the opening spread with the book title. Each story page retains its embedded lettering. EPUB and CBZ store the exact uploaded PNG bytes. The PDF embeds the PNGs’ existing compressed image data.
+The output files are `dist/tisquantums-day.epub`, `dist/tisquantums-day.pdf` and `dist/tisquantums-day.cbz`. The build fixes ZIP timestamps, omits PDF creation timestamps and uses the dedicated illustrated cover uploaded with the revised spreads. Each story page retains its embedded lettering. EPUB and CBZ store the exact uploaded PNG bytes. The PDF embeds the PNG artwork losslessly.
 
 To run the same EPUB validation locally, unpack the W3C EPUBCheck 5.3.0 distribution and run the following with Java:
 
@@ -29,9 +29,9 @@ java -jar /path/to/epubcheck-5.3.0/epubcheck.jar dist/tisquantums-day.epub --fai
 
 ## Page order and source review
 
-[book.json](book.json) records the reading order, original filenames, SHA-256 digests, scene labels and text transcriptions. The thirteen source PNGs were reviewed by artwork and passage. Each depicts a distinct part of the narrative. No duplicate or superseded spread was found among the uploads. Spread 12 looks back on the journey, and spread 13 addresses the reader about Thanksgiving.
+[book.json](book.json) records the reading order, original filenames or pinned revision candidates, source digests, scene labels and text transcriptions. The revised edition uses a dedicated cover and replaces spreads 4, 7, 8 and 9. The four superseded files remain in the repository but are excluded from all editions. Spread 12 looks back on the journey, and spread 13 addresses the reader about Thanksgiving.
 
-The build checks that entries are numbered 1–13 in order, every root PNG is accounted for exactly once, dimensions are 1774 × 887, source digests match and no two inputs decode to the same RGB pixels. For an intentional editorial revision, review the new spread and update its manifest record and the edition’s modified timestamp.
+The build checks that entries are numbered 1–13 in order, all root PNGs are active or explicitly superseded, active images have a 2:1 aspect ratio, source digests match and no two inputs decode to the same RGB pixels. Three re-encoded replacement uploads are pinned by Git blob digest and matched to the approved artwork using 16 × 8 RGB reference thumbnails. Ambiguous matches fail the build; the selected filename for each spread is printed in CI. For a future editorial revision, review the new spread and update its manifest record and the edition’s modified timestamp.
 
 ## Builds and releases
 
